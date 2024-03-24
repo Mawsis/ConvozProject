@@ -4,8 +4,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { HashLoader } from "react-spinners";
 
 const Chat = ({ auth, chats }) => {
-    const [chat, setChat] = useState(null);
-    console.log(chats);
+    const [chat, setChat] = useState(chats[0]);
+    useEffect(() => {
+        chats.forEach((chat) => {
+            window.Echo.private("Chat." + chat.id).listen(
+                "ChatMessageSent",
+                (event) => {
+                    chat.messages.push(event.message);
+                }
+            );
+        });
+    }, []);
     return (
         <div className="w-full h-full flex">
             <Nav auth={auth} />

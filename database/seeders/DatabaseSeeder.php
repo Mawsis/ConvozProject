@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'mawsis@example.com',
         ]);
         $user3 = User::factory()->create([
-            'name' => 'Wassim',
+            'name' => 'Younes',
             'email' => 'wassim@example.com',
         ]);
         $chat = Chat::factory()->create();
@@ -38,13 +38,15 @@ class DatabaseSeeder extends Seeder
         $chat2->users()->attach($user1);
         $chat2->users()->attach($user3);
         
-        Message::factory(10)->create([
-            'chat_id' => $chat->id,
-            'user_id' => $user1->id,
-        ]);
-        Message::factory(10)->create([
-            'chat_id' => $chat->id,
-            'user_id' => $user2->id,
-        ]);
+        for ($i = 0; $i < 10; $i++) {
+            Message::factory()->create([
+                'chat_id' => $chat->id,
+                'user_id' => [$user1->id,$user2->id][rand(0,1)]
+            ]);
+            Message::factory()->create([
+                'chat_id' => $chat2->id,
+                'user_id' => [$user1->id,$user3->id][rand(0,1)],
+            ]);
+        }
     }
 }

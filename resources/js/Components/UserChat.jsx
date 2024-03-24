@@ -7,9 +7,9 @@ const UserChat = ({ user, chat }) => {
     const loading = useRef("");
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState(chat.messages);
-    const [loadingMessage, setLoadingMessage] = useState("");
+    const [loadingMessages, setLoadingMessages] = useState([]);
     const handleSendMessage = async (e) => {
-        setLoadingMessage(loading.current);
+        setLoadingMessages([...loadingMessages, loading.current]);
         e.preventDefault();
         router.post(route("ChatMessage.store"), {
             message: message,
@@ -19,35 +19,42 @@ const UserChat = ({ user, chat }) => {
         setMessage("");
     };
     useEffect(() => {
-        window.Echo.private("Chat.1").listen("ChatMessageSent", (event) => {
-            console.log(loadingMessage);
-            setMessages((prev) => [...prev, event.message]);
-            setLoadingMessage("");
-        });
+        window.Echo.private("Chat." + chat.id).listen(
+            "ChatMessageSent",
+            (event) => {
+                setMessages((prev) => [...prev, event.message]);
+                setLoadingMessages(loadingMessages.slice(1));
+            }
+        );
     }, []);
 
     return (
         <>
             <div className="h-[92%] w-full flex flex-col gap-2 justify-end py-10 items-center overflow-auto">
-                {messages.map((message) => {
+                {messages.map((message, index) => {
                     return (
                         <div
-                            key={message.id}
+                            key={index}
                             className={
                                 message.user_id === user.id
-                                    ? "ml-auto p-2 bg-primary text-primary-content rounded"
-                                    : "mr-auto p-2 bg-secondary text-primary-content rounded"
+                                    ? "ml-auto p-2 bg-primary text-primary-content rounded max-w-[80%]"
+                                    : "mr-auto p-2 bg-secondary text-primary-content rounded max-w-[80%]"
                             }
                         >
                             {message.message}
                         </div>
                     );
                 })}
-                {loadingMessage && (
-                    <div className="ml-auto p-2 bg-neutral text-neutral-content rounded">
-                        {loadingMessage}
-                    </div>
-                )}
+                {loadingMessages.map((message, index) => {
+                    return (
+                        <div
+                            key={index}
+                            className="ml-auto p-2 bg-neutral text-neutral-content rounded"
+                        >
+                            {message}
+                        </div>
+                    );
+                })}
             </div>
             <form
                 onSubmit={handleSendMessage}
