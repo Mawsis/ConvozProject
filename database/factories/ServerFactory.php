@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Chat>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Server>
  */
-class ChatFactory extends Factory
+class ServerFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class ChatFactory extends Factory
     public function definition(): array
     {
         return [
-            "type" => "chat",
-            "name" => fake()->name(),
+            "name"=>fake()->name(),
         ];
     }
 }

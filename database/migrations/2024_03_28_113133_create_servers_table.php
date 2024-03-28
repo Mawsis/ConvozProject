@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('chats', function (Blueprint $table) {
+        Schema::create('servers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->enum('type',["chat","server","group"]);
-            $table->foreignId("server_id")->nullable();
-            $table->string("name")->nullable();
+            $table->string("name");
         });
     }
 
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('chats');
+        Schema::dropIfExists('servers');
     }
 };

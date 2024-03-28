@@ -10,7 +10,7 @@ class ChatController extends Controller
     public function index(Request $request)
     {
         $userId = $request->user()->id;
-        return Inertia::render("Chat", [
+        return Inertia::render("Chats", [
             "chats" => $request->user()->chats()
             ->where('type',"chat")
             ->with(['users' => function ($query) use ($userId) {

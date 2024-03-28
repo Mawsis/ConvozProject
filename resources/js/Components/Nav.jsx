@@ -29,15 +29,26 @@ const Nav = ({ auth }) => {
                     <div> Home </div>
                 </Link>
                 <Link
-                    href={route("Chat")}
+                    href={route("Chats")}
                     className={`flex items-center gap-2 w-full rounded-sm py-8 px-1 hover:text-neutral-content hover:bg-neutral  ease-in transition duration-100 ${
-                        location.pathname == "/Chat"
+                        location.pathname == "/Chats"
                             ? "bg-neutral text-neutral-content"
                             : ""
                     }`}
                 >
                     <MessageCircle />
-                    <div> Chat </div>
+                    <div> Chats </div>
+                </Link>
+                <Link
+                    href={route("Servers")}
+                    className={`flex items-center gap-2 w-full rounded-sm py-8 px-1 hover:text-neutral-content hover:bg-neutral  ease-in transition duration-100 ${
+                        location.pathname == "/Servers"
+                            ? "bg-neutral text-neutral-content"
+                            : ""
+                    }`}
+                >
+                    <MessageCircle />
+                    <div> Servers </div>
                 </Link>
             </div>
             <div className="h-[35%] flex flex-col justify-end items-center p-2 w-full">

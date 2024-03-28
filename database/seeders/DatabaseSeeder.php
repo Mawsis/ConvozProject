@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Chat;
 use App\Models\ChatUser;
 use App\Models\Message;
+use App\Models\Server;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -31,12 +32,21 @@ class DatabaseSeeder extends Seeder
             'email' => 'wassim@example.com',
         ]);
         $chat = Chat::factory()->create();
-        $chat2 = Chat::factory()->create();
-
+        $server = Server::factory()->create();
+        $chat2 = Chat::factory()->create([
+            "type" => "server",
+            "server_id" => $server->id,
+        ]);
+        $server->users()->attach($user1);
+        $server = Server::factory()->create();
+        $chat2 = Chat::factory()->create([
+            "type" => "server",
+            "server_id" => $server->id,
+        ]);
+        $server->users()->attach($user1);
+        
         $chat->users()->attach($user1);
         $chat->users()->attach($user2);
-        $chat2->users()->attach($user1);
-        $chat2->users()->attach($user3);
         
         for ($i = 0; $i < 10; $i++) {
             Message::factory()->create([
