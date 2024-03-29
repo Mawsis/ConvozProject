@@ -24,7 +24,7 @@ const ServerChat = ({ user, chat }) => {
             "ChatMessageSent",
             (event) => {
                 setMessages((prev) => [...prev, event.message]);
-                chat = chat.messages.push(event.message);
+                chat.messages.push(event.message);
                 setLoadingMessages((loadingMessages) => {
                     return loadingMessages.slice(1);
                 });
@@ -37,7 +37,6 @@ const ServerChat = ({ user, chat }) => {
     useEffect(() => {
         lastMessage.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, loadingMessages, lastMessage]);
-    useEffect(() => {});
     return (
         <>
             <div className="h-[92%] w-full flex flex-col gap-2 py-5 px-1 overflow-y-scroll">

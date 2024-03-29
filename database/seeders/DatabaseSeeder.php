@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $user1 = User::factory()->create([
-            'name' => 'Test User',
+            'name' => 'Grrbou3a',
             'email' => 'test@example.com',
         ]);
         $user2 = User::factory()->create([
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'mawsis@example.com',
         ]);
         $user3 = User::factory()->create([
-            'name' => 'Younes',
+            'name' => 'Zviti',
             'email' => 'wassim@example.com',
         ]);
         $chat = Chat::factory()->create();
