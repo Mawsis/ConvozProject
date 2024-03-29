@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ChatMessageSent;
+use App\Http\Resources\MessageResource;
 use App\Models\Chat;
 use App\Models\Message;
 use Illuminate\Http\Request;
@@ -16,6 +17,6 @@ class ChatMessageController extends Controller
             "user_id"=>$request->user()->id,
             "chat_id"=>$request->chat_id
         ]);
-        ChatMessageSent::dispatch($message);
+        ChatMessageSent::dispatch(new MessageResource($message));
     }
 }

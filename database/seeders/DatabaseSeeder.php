@@ -37,13 +37,23 @@ class DatabaseSeeder extends Seeder
             "type" => "server",
             "server_id" => $server->id,
         ]);
+        $chat3 = Chat::factory()->create([
+            "type" => "server",
+            "server_id" => $server->id,
+        ]);
         $server->users()->attach($user1);
         $server = Server::factory()->create();
         $chat2 = Chat::factory()->create([
             "type" => "server",
             "server_id" => $server->id,
         ]);
+        $chat3 = Chat::factory()->create([
+            "type" => "server",
+            "server_id" => $server->id,
+        ]);
         $server->users()->attach($user1);
+        $server->users()->attach($user2);
+        $server->users()->attach($user3);
         
         $chat->users()->attach($user1);
         $chat->users()->attach($user2);

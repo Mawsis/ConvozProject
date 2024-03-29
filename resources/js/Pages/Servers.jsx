@@ -7,21 +7,21 @@ const Servers = ({ auth, servers }) => {
     const [actualServer, setActualServer] = useState(
         servers ? servers[0] : null
     );
-    const [actualChat, setActualChat] = useState(
-        servers.chats ? servers.chats[0] : null
-    );
-    console.log(servers);
+    const [actualChat, setActualChat] = useState(actualServer.chats[0]);
     return (
         <div className="w-full h-full flex">
             <Nav auth={auth} />
-            <div className="w-[85%] h-full p-5 grid grid-cols-10 gap-3">
+            <div className="w-[85%] h-full p-5 grid grid-cols-10 grid-rows-10 gap-3">
                 <div className="flex flex-col gap-2 row-span-full rounded border border-primary bg-base-300 p-2">
                     {servers.map((server) => {
                         return (
                             <div
                                 key={server.id}
                                 className="w-full"
-                                onClick={() => setActualServer(server)}
+                                onClick={() => {
+                                    setActualServer(server);
+                                    setActualChat(server.chats[0]);
+                                }}
                             >
                                 <img
                                     src="https://random.imagecdn.app/500/500"
@@ -36,10 +36,15 @@ const Servers = ({ auth, servers }) => {
                     <ServerChats
                         chats={actualServer.chats}
                         server={actualServer}
+                        chatState={[actualChat, setActualChat]}
                     />
                 </div>
                 <div className="flex flex-col justify-center items-center h-full w-full row-span-full p-2 col-span-7 rounded border border-primary bg-base-300">
-                    <ServerChat chat={actualChat} />
+                    <ServerChat
+                        key={actualChat.id}
+                        chat={actualChat}
+                        user={auth.user}
+                    />
                 </div>
             </div>
         </div>

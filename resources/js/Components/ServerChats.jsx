@@ -1,8 +1,8 @@
 import { Hash } from "lucide-react";
 import React from "react";
 
-const ServerChats = ({ chats, server }) => {
-    console.log(chats);
+const ServerChats = ({ chats, server, chatState }) => {
+    const [actualChat, setActualChat] = chatState;
     return (
         <div className="h-full space-y-5">
             <div className="w-full flex flex-col justify-center items-center bg-secondary text-secondary-content h-[10%] rounded">
@@ -16,7 +16,12 @@ const ServerChats = ({ chats, server }) => {
                     return (
                         <div
                             key={chat.id}
-                            className="flex gap-3 w-full py-4 px-2 rounded-md bg-neutral text-neutral-content"
+                            onClick={() => setActualChat(chat)}
+                            className={`flex gap-3 w-full py-4 px-2 rounded-md ${
+                                chat == actualChat
+                                    ? "bg-secondary text-secondary-content"
+                                    : "bg-neutral text-neutral-content"
+                            }`}
                         >
                             <Hash /> {chat.name}
                         </div>

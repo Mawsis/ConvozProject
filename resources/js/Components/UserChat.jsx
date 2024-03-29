@@ -24,6 +24,7 @@ const UserChat = ({ user, chat }) => {
         window.Echo.private("Chat." + chat.id).listen(
             "ChatMessageSent",
             (event) => {
+                console.log(event);
                 setMessages((prev) => [...prev, event.message]);
                 setLoadingMessages((loadingMessages) => {
                     const newArray = loadingMessages.slice(1);
@@ -43,10 +44,10 @@ const UserChat = ({ user, chat }) => {
     return (
         <>
             <div className="h-[92%] w-full flex flex-col gap-2 py-5 px-1 overflow-y-scroll">
-                {messages.map((message) => {
+                {messages.map((message, index) => {
                     return (
                         <div
-                            key={message.id}
+                            key={index}
                             className={
                                 message.user_id === user.id
                                     ? "ml-auto p-2 bg-primary text-primary-content rounded max-w-[80%]"

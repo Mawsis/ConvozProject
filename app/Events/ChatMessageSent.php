@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Http\Resources\MessageResource;
 use App\Models\Chat;
 use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
@@ -19,7 +20,7 @@ class ChatMessageSent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public Message $message)
+    public function __construct(public MessageResource $message)
     {
         //
     }
