@@ -15,10 +15,11 @@ class ServerResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            "id" => $this->id,
             "name" => $this->name,
-            "users" => UserResource::collection($this->users),
+            "users" => UserSimpleResource::collection($this->users),
+            "chats" => ChatResource::collection($this->chats),
             "users_count" => $this->whenCounted('users'),
-            "chats" => ChatResource::collection($this->chats)
         ];
     }
 }

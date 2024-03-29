@@ -5,6 +5,7 @@ import { HashLoader } from "react-spinners";
 
 const Chat = ({ auth, chats }) => {
     const [chat, setChat] = useState(chats[0]);
+    console.log(chats);
     useEffect(() => {
         chats.forEach((chat) => {
             window.Echo.private("Chat." + chat.id).listen(

@@ -23,11 +23,11 @@ const Servers = ({ auth, servers }) => {
                                     setActualChat(server.chats[0]);
                                 }}
                             >
-                                <img
-                                    src="https://random.imagecdn.app/500/500"
-                                    className="w-full rounded-full hover:border-2 hover:border-primary"
-                                    alt=""
-                                />
+                                <div className="avatar placeholder aspect-square w-full">
+                                    <div className="bg-neutral text-neutral-content rounded-full hover:border-2 hover:border-primary">
+                                        <span className="text-xl">AI</span>
+                                    </div>
+                                </div>
                             </div>
                         );
                     })}

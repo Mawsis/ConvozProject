@@ -12,7 +12,7 @@ class ChatController extends Controller
     {
         return Inertia::render("Chats", [
             "chats" => ChatResource::collection($request->user()->chats()
-            ->where('type',"chat"))
+            ->where('type',"chat")->get())
         ]);
     }
 }

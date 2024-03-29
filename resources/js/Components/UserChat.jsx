@@ -49,7 +49,7 @@ const UserChat = ({ user, chat }) => {
                         <div
                             key={index}
                             className={
-                                message.user_id === user.id
+                                message.user.id === user.id
                                     ? "ml-auto p-2 bg-primary text-primary-content rounded max-w-[80%]"
                                     : "mr-auto p-2 bg-secondary text-primary-content rounded max-w-[80%]"
                             }

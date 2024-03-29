@@ -11,35 +11,33 @@ const ServerChat = ({ user, chat }) => {
     const handleSendMessage = async (e) => {
         e.preventDefault();
         if (message === "") return;
+        setMessage("");
         setLoadingMessages([...loadingMessages, loading.current]);
-        lastMessage.current?.scrollIntoView({ behavior: "smooth" });
         router.post(route("ChatMessage.store"), {
             message: message,
             user_id: user.id,
             chat_id: chat.id,
         });
-        setMessage("");
     };
     useEffect(() => {
         window.Echo.private("Chat." + chat.id).listen(
             "ChatMessageSent",
             (event) => {
                 setMessages((prev) => [...prev, event.message]);
+                chat = chat.messages.push(event.message);
                 setLoadingMessages((loadingMessages) => {
-                    const newArray = loadingMessages.slice(1);
-                    return newArray;
+                    return loadingMessages.slice(1);
                 });
-                console.log(event);
-                lastMessage.current?.scrollIntoView({ behavior: "smooth" });
             }
         );
         return () => {
             window.Echo.leave("Chat." + chat.id);
         };
-    }, [chat, lastMessage]);
+    }, [chat]);
     useEffect(() => {
-        lastMessage.current?.scrollIntoView();
-    }, [lastMessage]);
+        lastMessage.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages, loadingMessages, lastMessage]);
+    useEffect(() => {});
     return (
         <>
             <div className="h-[92%] w-full flex flex-col gap-2 py-5 px-1 overflow-y-scroll">
@@ -48,21 +46,21 @@ const ServerChat = ({ user, chat }) => {
                         <div
                             key={message.id}
                             className={
-                                message.user_id === user.id
+                                message.user.id === user.id
                                     ? "ml-auto max-w-[80%]"
                                     : "mr-auto max-w-[80%]"
                             }
                         >
                             <div
                                 className={`text-sm ${
-                                    message.user_id === user.id && " text-right"
+                                    message.user.id === user.id && " text-right"
                                 }`}
                             >
-                                {/* {message.user.name} */}
+                                {message.user.name}
                             </div>
                             <div
                                 className={
-                                    message.user_id === user.id
+                                    message.user.id === user.id
                                         ? "p-2 bg-primary text-primary-content rounded"
                                         : "p-2 bg-secondary text-primary-content rounded"
                                 }
