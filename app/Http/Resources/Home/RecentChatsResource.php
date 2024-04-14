@@ -17,8 +17,8 @@ class RecentChatsResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "message" => $this->messages()->latest()->first()->message,
-            "message_time" => $this->messages()->latest()->first()->created_at->diffForHumans(),
+            "message" => $this->messages()->latest()->first()->message ?? "",
+            "message_time" => $this->messages()->latest()->first()?->created_at->diffForHumans() ?? "",
             "user" => UserSimpleResource::make($this->users()->latest()->first()),
         ];
     }

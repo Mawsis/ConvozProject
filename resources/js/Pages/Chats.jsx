@@ -1,10 +1,11 @@
 import Nav from "@/Components/Nav";
 import UserChat from "@/Components/UserChat";
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "@inertiajs/react";
 import { HashLoader } from "react-spinners";
 
 const Chat = ({ auth, chats, chat }) => {
-    console.log(chat);
+    const [actualChat, setActualChat] = useState(chat);
     useEffect(() => {
         chats.forEach((chat) => {
             window.Echo.private("Chat." + chat.id).listen(
@@ -25,7 +26,7 @@ const Chat = ({ auth, chats, chat }) => {
                             <div
                                 key={chat.id}
                                 className="w-full h-1/6 bg-secondary text-secondary-content rounded-md relative"
-                                onClick={(e) => setChat(chat)}
+                                onClick={(e) => setActualChat(chat)}
                             >
                                 <div className="w-full items-center h-full p-1 flex gap-4">
                                     <div className="avatar online placeholder aspect-square h-2/3 rounded-full">
@@ -39,7 +40,7 @@ const Chat = ({ auth, chats, chat }) => {
                                         <h2 className="text-xl font-bold">
                                             {chat.users[0].name}
                                         </h2>
-                                        <p>
+                                        <p className=" line-clamp-2">
                                             {chat.messages[
                                                 chat.messages.length - 1
                                             ]
@@ -49,7 +50,13 @@ const Chat = ({ auth, chats, chat }) => {
                                                 : "nothing"}
                                         </p>
                                         <p className="text-sm font-light">
-                                            3 Hours ago
+                                            {chat.messages[
+                                                chat.messages.length - 1
+                                            ]
+                                                ? chat.messages[
+                                                      chat.messages.length - 1
+                                                  ].created_at
+                                                : "nothing"}
                                         </p>
                                     </div>
                                 </div>
@@ -58,8 +65,12 @@ const Chat = ({ auth, chats, chat }) => {
                     })}
                 </div>
                 <div className="flex flex-col justify-center items-center h-full w-full row-span-4 p-2 col-span-3 rounded border border-primary bg-base-300">
-                    {chat ? (
-                        <UserChat key={chat.id} user={auth.user} chat={chat} />
+                    {actualChat ? (
+                        <UserChat
+                            key={actualChat.id}
+                            user={auth.user}
+                            chat={actualChat}
+                        />
                     ) : (
                         <HashLoader color="#1eb854" />
                     )}
