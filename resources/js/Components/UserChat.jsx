@@ -24,22 +24,19 @@ const UserChat = ({ user, chat }) => {
         window.Echo.private("Chat." + chat.id).listen(
             "ChatMessageSent",
             (event) => {
-                console.log(event);
                 setMessages((prev) => [...prev, event.message]);
                 setLoadingMessages((loadingMessages) => {
-                    const newArray = loadingMessages.slice(1);
-                    return newArray;
+                    return loadingMessages.slice(1);
                 });
-                lastMessage.current?.scrollIntoView({ behavior: "smooth" });
             }
         );
         return () => {
             window.Echo.leave("Chat." + chat.id);
         };
-    }, [chat, lastMessage]);
+    }, [chat]);
     useEffect(() => {
-        lastMessage.current?.scrollIntoView();
-    }, [lastMessage]);
+        lastMessage.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages, loadingMessages, lastMessage]);
 
     return (
         <>

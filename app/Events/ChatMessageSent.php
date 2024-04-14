@@ -32,8 +32,12 @@ class ChatMessageSent implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        return [
+        $channels = []; 
+        foreach ($this->message->chat->users as $user) {
+            $channels[] = new PrivateChannel("User.".$user->id);
+        }
+        return array_merge([
             new PrivateChannel('Chat.'.$this->message->chat->id),
-        ];
+        ], $channels);
     }
 }

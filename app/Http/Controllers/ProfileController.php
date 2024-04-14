@@ -61,8 +61,4 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-    public function test(Request $request)
-    {
-        return Inertia::render('Home');
-    }
 }

@@ -25,6 +25,7 @@
     "dependencies": {
         "daisyui": "^4.7.3",
         "lucide-react": "^0.363.0",
+        "momentjs": "^2.0.0",
         "react-daisyui": "^5.0.0",
         "react-spinners": "^0.13.8",
         "react-window": "^1.8.10"

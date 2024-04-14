@@ -3,9 +3,8 @@ import UserChat from "@/Components/UserChat";
 import React, { useContext, useEffect, useState } from "react";
 import { HashLoader } from "react-spinners";
 
-const Chat = ({ auth, chats }) => {
-    const [chat, setChat] = useState(chats[0]);
-    console.log(chats);
+const Chat = ({ auth, chats, chat }) => {
+    console.log(chat);
     useEffect(() => {
         chats.forEach((chat) => {
             window.Echo.private("Chat." + chat.id).listen(

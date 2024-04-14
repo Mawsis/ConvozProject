@@ -9,10 +9,12 @@ import {
     User,
 } from "lucide-react";
 import { Link } from "@inertiajs/react";
+import Notification from "./Notification";
 
 const Nav = ({ auth }) => {
     return (
         <nav className=" w-[15%] h-full bg-primary flex flex-col justify-between items-center text-primary-content">
+            <Notification user={auth.user} />
             <h1 className="text-3xl h-[20%] flex justify-center items-center font-bold">
                 Convoz
             </h1>
@@ -47,7 +49,7 @@ const Nav = ({ auth }) => {
                             : ""
                     }`}
                 >
-                    <MessageCircle />
+                    <Server />
                     <div> Servers </div>
                 </Link>
             </div>
